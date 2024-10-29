@@ -20,5 +20,10 @@ namespace Localization
 		{
 			InitializeComponent();
 		}
-    }
+
+		public void DebugButton_Click()
+		{
+			GenerateClass();
+		}
+	}
 }
