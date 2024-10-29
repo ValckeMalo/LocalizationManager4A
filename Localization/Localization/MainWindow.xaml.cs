@@ -20,5 +20,5 @@ namespace Localization
 		{
 			InitializeComponent();
 		}
-	}
+    }
 }
