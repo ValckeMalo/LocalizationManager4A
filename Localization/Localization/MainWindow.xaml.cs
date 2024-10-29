@@ -23,7 +23,7 @@ namespace Localization
 
 		public void DebugButton_Click()
 		{
-			GenerateClass();
+
 		}
 	}
 }
