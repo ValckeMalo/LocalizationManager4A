@@ -48,10 +48,10 @@ namespace Localization
 
             public struct StringKeyValue
             {
-                string key;
-                string value;
+                public string key;
+                public string value;
 
-                public StringKeyValue(string value, string key)
+                public StringKeyValue(string key, string value)
                 {
                     this.value = value;
                     this.key = key;
@@ -59,13 +59,41 @@ namespace Localization
             }
         }
 
-        private void GenerateClass(ClassExtension extension, string path)
+        private void GenerateClass(ClassExtension extension, string path, LanguageLocalizer[] allLanguages)
         {
             if (path == null)
                 return;
 
             string model = File.ReadAllText("CSModel.txt");
+
+            string dictionary = string.Empty;
+
+            for (int i = 0; i < allLanguages.Length; i++)
+            {
+                dictionary += DictionaryVariablesCS(allLanguages[i]);
+            }
+
+            model = model.Replace("/**/", dictionary);
             File.WriteAllText(path + classExtension[extension], model);
+        }
+
+        private string DictionaryVariablesCS(LanguageLocalizer localizer)
+        {
+            string value = string.Empty;
+
+            value = "\t\t{\"" + localizer.language + "\",\n\t\t\tnew Dictionary<string,string>()\n\t\t\t{";
+
+            LanguageLocalizer.StringKeyValue[] stringKeyValue = localizer.stringsCollections;
+            for (int i = 0; i < stringKeyValue.Length; i++)
+            {
+                value += "\n\t\t\t\t{";
+                value += $"\"{stringKeyValue[i].key}\",\"{stringKeyValue[i].value}\"";
+                value += "},";
+            }
+
+            value += "\n\t\t\t}\n\t\t},\n\n";
+
+            return value;
         }
     }
 }
