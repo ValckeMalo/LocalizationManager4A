@@ -11,19 +11,19 @@ using System.Windows.Shapes;
 
 namespace Localization
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		public MainWindow()
-		{
-			InitializeComponent();
-		}
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
 
-		public void DebugButton_Click()
-		{
-			GenerateClass();
-		}
-	}
+        private void DebugButton_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateClass(ClassExtension.CS, "Debug");
+        }
+    }
 }

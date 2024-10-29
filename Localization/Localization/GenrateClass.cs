@@ -28,6 +28,12 @@ namespace Localization
             public string language;
             public StringKeyValue[] stringsCollections;
 
+            public LanguageLocalizer()
+            {
+                language = string.Empty;
+                stringsCollections = new StringKeyValue[0];
+            }
+
             public LanguageLocalizer(string language, List<StringKeyValue> stringsCollections)
             {
                 this.language = language;
@@ -53,7 +59,7 @@ namespace Localization
             }
         }
 
-        private void GenerateClass(ClassExtension extension, string path, LanguageLocalizer[] allLanguages)
+        private void GenerateClass(ClassExtension extension, string path)
         {
             if (path == null)
                 return;
