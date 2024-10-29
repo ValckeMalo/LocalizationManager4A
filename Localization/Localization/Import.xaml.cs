@@ -30,7 +30,14 @@ namespace Localization
             var serializer = new XmlSerializer(typeof(List<LocalizationItem>));
             using (var reader = new StreamReader(filePath))
             {
-                return (List<LocalizationItem>)serializer.Deserialize(reader);
+                var result = (List<LocalizationItem>)serializer.Deserialize(reader);
+
+                if (result == null)
+                {
+                    throw new Exception("Le résultat de la désérialisation est null.");
+                }
+
+                return result;
             }
         }
     }
