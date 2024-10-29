@@ -25,12 +25,12 @@ namespace Localization
             
         }
 
-        public List<TempStruct> ImportFromXML(string filePath)
+        public List<LocalizationItem> ImportFromXML(string filePath)
         {
-            var serializer = new XmlSerializer(typeof(List<TempStruct>));
+            var serializer = new XmlSerializer(typeof(List<LocalizationItem>));
             using (var reader = new StreamReader(filePath))
             {
-                return (List<TempStruct>)serializer.Deserialize(reader);
+                return (List<LocalizationItem>)serializer.Deserialize(reader);
             }
         }
     }

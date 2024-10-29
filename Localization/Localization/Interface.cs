@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +17,8 @@ namespace Localization
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public ObservableCollection<LocalizationItem> LocalizationItems { get; set; }
+
 		private void FileButton_Click(object sender, RoutedEventArgs e)
 		{
 			fileContextMenu.IsOpen = true;
@@ -60,7 +63,13 @@ namespace Localization
 
 		private void AddRow_Click(object sender, RoutedEventArgs e)
 		{
+			var newItem = new LocalizationItem
+			{
+				Key = "NewKey",
+				Languages = new List<string>()
+			};
 
+			LocalizationItems.Add(newItem);
 		}
 
 		private void RemoveColumn_Click(object sender, RoutedEventArgs e)
