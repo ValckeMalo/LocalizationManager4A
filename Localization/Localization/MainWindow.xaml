@@ -49,8 +49,7 @@
 
         <DataGrid x:Name="DataGridLocalization" Grid.Column="0" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Key" Binding="{Binding Key}" />
-                <DataGridTextColumn Header="En" Binding="{Binding En}" />
+                
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
