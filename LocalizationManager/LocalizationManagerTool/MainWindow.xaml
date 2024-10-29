@@ -1,0 +1,17 @@
+﻿<Window x:Class="LocalizationManagerTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocalizationManagerTool"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid VerticalAlignment="Top" Margin="0,0,0,-1">
+        <Menu VerticalAlignment="Top" Height="22">
+            <Button Content="File" Click="Button_Click"/>
+            <Button Content="Edit" Click="Button_Edit"/>
+        </Menu>
+        <DataGrid Name="dataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,22,0,0"/>
+
+    </Grid>
+</Window>
