@@ -39,6 +39,6 @@
             </Button>
         </Grid>
 
-        <DataGrid Name="DataGridLocalization" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.Row="1" SelectionChanged="DataGrid_SelectionChanged" />
+        <DataGrid x:Name="DataGridLocalization" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.Row="1" SelectionChanged="DataGrid_SelectionChanged" />
     </Grid>
 </Window>
