@@ -1,15 +1,15 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System;
+using System.Windows.Media.Animation;
 
 namespace Localization
 {
 	public partial class MainWindow : Window
 	{
-		public ObservableCollection<LocalizationItem> LocalizationItems { get; set; }
+		public ObservableCollection<Keys> KeysItems { get; set; }
+		public Dictionary<string, ObservableCollection<StringValueKey>> dictStringValueKeys { get; set; } = new Dictionary<string, ObservableCollection<StringValueKey>>();
 
 		private void FileButton_Click(object sender, RoutedEventArgs e) => fileContextMenu.IsOpen = true;
 
@@ -21,8 +21,8 @@ namespace Localization
 
 		private void InitializeDataGrid()
 		{
-			LocalizationItems = new ObservableCollection<LocalizationItem>();
-			DataGridLocalization.ItemsSource = LocalizationItems;
+			KeysItems = new ObservableCollection<Keys>();
+			DataGrid_Master.ItemsSource = KeysItems;
 		}
 
 		private void AddColumn_Click(object sender, RoutedEventArgs e)
@@ -60,27 +60,96 @@ namespace Localization
 
 		private void RemoveRow_Click(object sender, RoutedEventArgs e)
 		{
-			LocalizationItem selectedItem = (LocalizationItem)DataGridLocalization.SelectedItem;
+			//LocalizationItem selectedItem = (LocalizationItem)DataGridLocalization.SelectedItem;
 
-			if (selectedItem != null)
+			//if (selectedItem != null)
+			//{
+			//	int index = LocalizationItems.IndexOf(selectedItem);
+
+			//	if (index >= 0)
+			//		LocalizationItems.RemoveAt(index);
+			//}
+		}
+
+		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (MainTabControl.SelectedIndex == MainTabControl.Items.Count - 1)
 			{
-				int index = LocalizationItems.IndexOf(selectedItem);
+				AddTabItem(MainTabControl);
+			}
+		}
 
-				if (index >= 0)
-					LocalizationItems.RemoveAt(index);
+		private void AddTabItem(TabControl tabControl)
+		{
+			int count = tabControl.Items.Count;
+
+			// ASK TAB NAME
+			InputDialog inputDialog = new InputDialog();
+			if (inputDialog.ShowDialog() == true)
+			{
+				string header = inputDialog.InputValue;
+
+				// CREATE TAB
+				var tabItem = new TabItem
+				{
+					Header = header
+				};
+
+				var dataGrid = new DataGrid
+				{
+					Name = $"DataGrid_{header}"
+				};
+
+				ObservableCollection<StringValueKey> newKeyValue = new ObservableCollection<StringValueKey>();
+				dictStringValueKeys.Add(header, newKeyValue);
+				dataGrid.ItemsSource = dictStringValueKeys[header];
+				dataGrid.CanUserAddRows = false;
+
+				foreach (Keys keyItem in KeysItems)
+				{
+					newKeyValue.Add(new StringValueKey() { Key = keyItem.Key, Value = string.Empty });
+				}
+
+				tabItem.Content = dataGrid;
+
+				// INSERT TAB
+				tabControl.Items.Insert(count - 1, tabItem);
+			}
+
+			// CHANGE SELECTED INEDX
+			tabControl.SelectedIndex = count - 2;
+		}
+
+		private void DataGrid_Master_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+		{
+			for (int i = 1; i < MainTabControl.Items.Count - 1; i++)
+			{
+				TabItem tabItem = (TabItem)MainTabControl.Items[i];
+				string header = $"{tabItem.Header}";
+
+				if (e.EditingElement is TextBox)
+				{
+					string newKey = (e.EditingElement as TextBox).Text;
+
+					dictStringValueKeys[header].Add(new StringValueKey
+					{
+						Key = newKey,
+						Value = string.Empty
+					});
+				}
 			}
 		}
 	}
 }
 
-//var currentCell = DataGridLocalization.CurrentCell;
-
-//if (currentCell.Column != null)
+//foreach (var item in MainTabControl.Items)
 //{
-//	int columnIndex = currentCell.Column.DisplayIndex;
+//	if (item is TabItem tabItem)
+//	{
+//		DataGrid dataGrid = (DataGrid)tabItem.Content;
+//		if (dataGrid != null)
+//		{
 
-//	var rowItem = currentCell.Item;
-
-//	Console.WriteLine($"Column Index: {columnIndex}");
-//	Console.WriteLine($"Row Item: {rowItem}");
+//		}
+//	}
 //}

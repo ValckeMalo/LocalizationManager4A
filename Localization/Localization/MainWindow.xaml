@@ -34,10 +34,15 @@
             <Button Content="Debug" Padding="8,2" Click="DebugButton_Click"> </Button>
         </ToolBar>
 
-        <DataGrid x:Name="DataGridLocalization" Grid.Column="0" Grid.Row="1">
-            <DataGrid.Columns>
-                
-            </DataGrid.Columns>
-        </DataGrid>
+        <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Master">
+                <DataGrid x:Name="DataGrid_Master" CellEditEnding="DataGrid_Master_CellEditEnding">
+                    <DataGrid.Columns>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="+" />
+        </TabControl>
     </Grid>
 </Window>

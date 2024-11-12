@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Collections.Generic;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 
 public class LocalizationItem : INotifyPropertyChanged
 {
@@ -10,9 +10,9 @@ public class LocalizationItem : INotifyPropertyChanged
     {
         this.language = language;
         this.stringsCollections = stringsCollections;
-    }
+	}
 
-    public string Language
+	public string Language
     {
         get => language;
         set
@@ -44,29 +44,47 @@ public class LocalizationItem : INotifyPropertyChanged
 
 public class StringValueKey : INotifyPropertyChanged
 {
-    private string key = string.Empty;
-    private string value = string.Empty;
+	private string key = string.Empty;
+	private string value = string.Empty;
 
-    public string Key
-    {
-        get => key;
-        set
-        {
-            this.key = value;
-            OnPropertyChanged(nameof(this.key));
-        }
-    }
+	public string Key
+	{
+		get => key;
+		set
+		{
+			this.key = value;
+			OnPropertyChanged(nameof(this.key));
+		}
+	}
 
-    public string Value
-    {
-        get => value;
-        set
-        {
-            this.value = value;
-            OnPropertyChanged(nameof(this.value));
-        }
-    }
+	public string Value
+	{
+		get => value;
+		set
+		{
+			this.value = value;
+			OnPropertyChanged(nameof(this.value));
+		}
+	}
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	public event PropertyChangedEventHandler? PropertyChanged;
+	protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+}
+
+public class Keys : INotifyPropertyChanged
+{
+	private string key = string.Empty;
+
+	public string Key
+	{
+		get => key;
+		set
+		{
+			key = value;
+			OnPropertyChanged(nameof(key));
+		}
+	}
+
+	public event PropertyChangedEventHandler? PropertyChanged;
+	protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }
