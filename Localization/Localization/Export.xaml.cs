@@ -14,40 +14,33 @@ namespace Localization
     /// 
     public partial class MainWindow : Window
     {
-        private void ExportCSV(DataGrid dataGrid, string filePath)
+        public void ExportToCSV(List<LocalizationItem> items, string filePath)
         {
             var sb = new StringBuilder();
 
-            // Ajouter les en-têtes
-            foreach (var column in dataGrid.Columns)
+            foreach (var item in items)
             {
-                sb.Append(column.Header.ToString() + ",");
-            }
-            sb.AppendLine();
+                sb.Append(item.Language);
 
-            // Ajouter les lignes
-            foreach (var item in dataGrid.Items)
-            {
-                var row = (LocalizationItem)item;
-                sb.Append(row.Key + ",");
+                foreach (var stringValue in item.StringsCollections)
+                {
+                    sb.Append($",{stringValue.Key},{stringValue.Value}");
+                }
 
-                // Ajouter les langues
-                sb.AppendLine(string.Join(",", row.Languages));
+                sb.AppendLine();
             }
 
             File.WriteAllText(filePath, sb.ToString());
         }
 
-        public void ExportToJSON(DataGrid dataGrid, string filePath)
+        public void ExportToJSON(List<LocalizationItem> items, string filePath)
         {
-            var items = dataGrid.Items.Cast<LocalizationItem>().ToList();
             var json = JsonSerializer.Serialize(items);
             File.WriteAllText(filePath, json);
         }
 
-        public void ExportToXML(DataGrid dataGrid, string filePath)
+        public void ExportToXML(List<LocalizationItem> items, string filePath)
         {
-            var items = dataGrid.Items.Cast<LocalizationItem>().ToList();
             var serializer = new XmlSerializer(typeof(List<LocalizationItem>));
             using (var writer = new StreamWriter(filePath))
             {

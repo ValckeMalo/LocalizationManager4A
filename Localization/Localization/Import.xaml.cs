@@ -22,21 +22,27 @@ namespace Localization
 
             using (var parser = new TextFieldParser(filePath))
             {
-                parser.SetDelimiters(","); // Délimiteur de colonne
-                parser.HasFieldsEnclosedInQuotes = true; // Si tu as des champs entre guillemets
-
-                // Lire les en-têtes (si nécessaire)
-                string[] headers = parser.ReadFields();
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
 
                 while (!parser.EndOfData)
                 {
                     string[] fields = parser.ReadFields();
-                    var item = new LocalizationItem
+
+                    string language = fields[0];
+                    var stringsCollections = new List<StringValueKey>();
+
+                    for (int i = 1; i < fields.Length; i += 2)
                     {
-                        Key = fields[0], // Le premier champ devient la clé
-                        Languages = new List<string>(fields[1..]) // Ajoute toutes les langues à partir du deuxième champ
-                    };
-                    items.Add(item);
+                        var stringValueKey = new StringValueKey
+                        {
+                            Key = fields[i],
+                            Value = fields[i + 1]
+                        };
+                        stringsCollections.Add(stringValueKey);
+                    }
+
+                    items.Add(new LocalizationItem(language, stringsCollections));
                 }
             }
 
