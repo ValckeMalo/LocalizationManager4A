@@ -66,7 +66,7 @@ namespace Localization
             value = "{\"" + localizer.Language + "\",\n" +
                 "\t\t\t{";
 
-            Dictionary<string, string> stringKeyValue = localizer.StringsCollections;
+            List<StringValueKey> stringKeyValue = localizer.StringsCollections;
             foreach (var item in stringKeyValue)
             {
                 value += "\n\t\t\t\t{";
@@ -84,7 +84,7 @@ namespace Localization
 
             value = "\t\t{\"" + localizer.Language + "\",\n\t\t\tnew Dictionary<string,string>()\n\t\t\t{";
 
-            Dictionary<string, string> stringKeyValue = localizer.StringsCollections;
+            List<StringValueKey> stringKeyValue = localizer.StringsCollections;
             foreach (var item in stringKeyValue)
             {
                 value += "\n\t\t\t\t{";
