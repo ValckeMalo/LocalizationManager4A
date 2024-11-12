@@ -1,19 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace Localization
+public class LocalizationItem : INotifyPropertyChanged
 {
-	public struct LocalizationItem
-	{
-		public string Key { get; set; }
-		public List<string> Languages { get; set; }
+	private string _key;
+	private List<string> _languages;
 
-		public LocalizationItem()
+	public string Key
+	{
+		get => _key;
+		set
 		{
-			Languages = new List<string>();
+			if (_key != value)
+			{
+				_key = value;
+				OnPropertyChanged(nameof(Key));
+			}
 		}
+	}
+
+	public List<string> Languages
+	{
+		get => _languages;
+		set
+		{
+			if (_languages != value)
+			{
+				_languages = value;
+				OnPropertyChanged(nameof(Languages));
+			}
+		}
+	}
+
+	public event PropertyChangedEventHandler PropertyChanged;
+
+	protected virtual void OnPropertyChanged(string propertyName)
+	{
+		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 	}
 }

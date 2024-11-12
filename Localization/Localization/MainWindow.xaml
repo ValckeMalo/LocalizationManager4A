@@ -27,22 +27,9 @@
                 </Button.ContextMenu>
             </Button>
             <Separator Width="2" />
-            <Button Content="Add" Padding="8,2" Click="AddButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu x:Name="addContextMenu">
-                        <MenuItem Header="Add column" Click="AddColumn_Click" />
-                        <MenuItem Header="Add row" Click="AddRow_Click" />
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-            <Button Content="Remove" Padding="8,2" Click="RemoveButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu x:Name="removeContextMenu">
-                        <MenuItem Header="Remove column" Click="RemoveColumn_Click" />
-                        <MenuItem Header="Remove row" Click="RemoveRow_Click" />
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
+            <Button Content="Add column" Padding="8,2" Click="AddColumn_Click"></Button>
+            <Button Content="Remove column" Padding="8,2" Click="RemoveColumn_Click"></Button>
+            <Button Content="Remove row" Padding="8,2" Click="RemoveRow_Click"></Button>
             <Separator Width="2" />
             <Button Content="Debug" Padding="8,2" Click="DebugButton_Click"> </Button>
         </ToolBar>
