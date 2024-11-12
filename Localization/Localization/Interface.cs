@@ -27,18 +27,18 @@ namespace Localization
 
 		private void AddColumn_Click(object sender, RoutedEventArgs e)
 		{
-			InputDialog inputDialog = new InputDialog();
-			if (inputDialog.ShowDialog() == true)
-			{
-				string columnHeader = inputDialog.InputValue;
-				if (!string.IsNullOrEmpty(columnHeader))
-				{
-					foreach (var item in LocalizationItems)
-					{
-						item.Languages.Add(string.Empty);
-					}
-				}
-			}
+			//InputDialog inputDialog = new InputDialog();
+			//if (inputDialog.ShowDialog() == true)
+			//{
+			//	string columnHeader = inputDialog.InputValue;
+			//	if (!string.IsNullOrEmpty(columnHeader))
+			//	{
+			//		foreach (var item in LocalizationItems)
+			//		{
+			//			item.Languages.Add(string.Empty);
+			//		}
+			//	}
+			//}
 		}
 
 		private void RemoveColumn_Click(object sender, RoutedEventArgs e)
