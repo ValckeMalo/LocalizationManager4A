@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:Localization"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
+    <Window.InputBindings>
+        <KeyBinding Key="F" Modifiers="Control" Command="{x:Static local:Commands.NewFileCommand}" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:Commands.NewFileCommand}" Executed="NewFileButton_Click" />
+    </Window.CommandBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -16,27 +25,37 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ToolBar DockPanel.Dock="Top" Background="LightGray">
-            <Button Content="File" Padding="8,2" Click="FileButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu x:Name="fileContextMenu">
-                        <MenuItem Header="New" Click="New_Click" />
-                        <MenuItem Header="Import" Click="Import_Click" />
-                        <MenuItem Header="Export" Click="Export_Click" />
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-            <Separator Width="2" />
-            <Button Content="Add column" Padding="8,2" Click="AddColumn_Click"></Button>
-            <Button Content="Remove column" Padding="8,2" Click="RemoveColumn_Click"></Button>
-            <Button Content="Remove row" Padding="8,2" Click="RemoveRow_Click"></Button>
-            <Separator Width="2" />
-            <Button Content="Debug" Padding="8,2" Click="DebugButton_Click"> </Button>
-        </ToolBar>
+        <Menu DockPanel.Dock="Top" Background="LightGray">
+            <MenuItem Header="File">
+                <MenuItem x:Name="NewFileButton" Header="New File" InputGestureText="Ctrl+F" Click="NewFileButton_Click" />
+
+                <MenuItem Header="Import to ...">
+                    <MenuItem x:Name="ImportCsvButton" Header="CSV" IsEnabled="False" Click="ImportCsvButton_Click" />
+                    <MenuItem x:Name="ImportJsonButton" Header="Json" IsEnabled="False" Click="ImportJsonButton_Click" />
+                    <MenuItem x:Name="ImportXmlButton" Header="XML" IsEnabled="False" Click="ImportXmlButton_Click" />
+                </MenuItem>
+
+                <MenuItem Header="Export to ...">
+                    <MenuItem x:Name="ExportCsvButton" Header="CSV" IsEnabled="False" Click="ExportCsvButton_Click" />
+                    <MenuItem x:Name="ExportJsonButton" Header="Json" IsEnabled="False" Click="ExportJsonButton_Click" />
+                    <MenuItem x:Name="ExportXmlButton" Header="XML" IsEnabled="False" Click="ExportXmlButton_Click" />
+                    <MenuItem x:Name="ExportCsButton" Header="C#" IsEnabled="False" Click="ExportCsButton_Click" />
+                    <MenuItem Header="C++">
+                        <MenuItem x:Name="ExportHCppButton" Header="H and CPP" IsEnabled="True" Click="ExportHCppButton_Click" />
+                        <MenuItem x:Name="ExportHInlineButton" Header="H inline" IsEnabled="True" Click="ExportHInlineButton_Click" />
+                        <MenuItem x:Name="ExportHppCppButton" Header="HPP and CPP" IsEnabled="True" Click="ExportHppCppButton_Click" />
+                        <MenuItem x:Name="ExportHppInlineButton" Header="HPP inline" IsEnabled="True" Click="ExportHppInlineButton_Click" />
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem x:Name="RemoveCurrentLanguage" Header="Remove current language" Click="RemoveCurrentLanguage_Click" />
+            </MenuItem>
+        </Menu>
 
         <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Master">
-                <DataGrid x:Name="DataGrid_Master" CellEditEnding="DataGrid_Master_CellEditEnding">
+                <DataGrid x:Name="DataGrid_Master" BeginningEdit="DataGrid_Master_BeginningEdit" CellEditEnding="DataGrid_Master_CellEditEnding">
                     <DataGrid.Columns>
 
                     </DataGrid.Columns>
