@@ -17,7 +17,10 @@
 
             TryDirectoryPath();
 
-            File.WriteAllText(DirectoryPath + FileName + ".h", modelhInline);
+            string path = DirectoryPath + "HInline/";
+            TryDirectoryPath(path);
+
+            File.WriteAllText(path + FileName + ".h", modelhInline);
         }
 
         protected override string GenerateLanguageVariable(LocalizationItem localizationItem)

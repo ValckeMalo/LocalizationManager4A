@@ -18,7 +18,10 @@
 
             TryDirectoryPath();
 
-            File.WriteAllText(DirectoryPath + FileName + ".cs", model);
+            string path = DirectoryPath + "CS/";
+            TryDirectoryPath(path);
+
+            File.WriteAllText(path + FileName + ".cs", model);
         }
 
         protected override string GenerateLocalizerVariable(List<LocalizationItem> allLanguages)

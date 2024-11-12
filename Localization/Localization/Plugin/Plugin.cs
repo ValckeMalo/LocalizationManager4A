@@ -21,5 +21,12 @@ namespace Localization.Plugin
                 Directory.CreateDirectory(DirectoryPath);
             }
         }
+        protected void TryDirectoryPath(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
     }
 }
