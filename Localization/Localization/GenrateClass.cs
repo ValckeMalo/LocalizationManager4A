@@ -23,43 +23,7 @@ namespace Localization
             {ClassExtension.HCPP,".cpp"},
         };
 
-        private struct LanguageLocalizer
-        {
-            public string language;
-            public StringKeyValue[] stringsCollections;
-
-            public LanguageLocalizer()
-            {
-                language = string.Empty;
-                stringsCollections = new StringKeyValue[0];
-            }
-
-            public LanguageLocalizer(string language, List<StringKeyValue> stringsCollections)
-            {
-                this.language = language;
-                this.stringsCollections = stringsCollections.ToArray();
-            }
-
-            public LanguageLocalizer(string language, params StringKeyValue[] stringsCollections)
-            {
-                this.language = language;
-                this.stringsCollections = stringsCollections;
-            }
-
-            public struct StringKeyValue
-            {
-                public string key;
-                public string value;
-
-                public StringKeyValue(string key, string value)
-                {
-                    this.value = value;
-                    this.key = key;
-                }
-            }
-        }
-
-        private void GenerateClass(ClassExtension extension, LanguageLocalizer[] allLanguages)
+        private void GenerateClass(ClassExtension extension, LocalizationItem[] allLanguages)
         {
             if (extension == ClassExtension.CS)
             {
@@ -95,18 +59,18 @@ namespace Localization
             }
         }
 
-        private string MapVariablesCPP(LanguageLocalizer localizer)
+        private string MapVariablesCPP(LocalizationItem localizer)
         {
             string value = string.Empty;
 
-            value = "{\"" + localizer.language + "\",\n" +
+            value = "{\"" + localizer.Language + "\",\n" +
                 "\t\t\t{";
 
-            LanguageLocalizer.StringKeyValue[] stringKeyValue = localizer.stringsCollections;
-            for (int i = 0; i < stringKeyValue.Length; i++)
+            Dictionary<string, string> stringKeyValue = localizer.StringsCollections;
+            foreach (var item in stringKeyValue)
             {
                 value += "\n\t\t\t\t{";
-                value += $"\"{stringKeyValue[i].key}\",\"{stringKeyValue[i].value}\"";
+                value += $"\"{item.Key}\",\"{item.Value}\"";
                 value += "},";
             }
 
@@ -114,17 +78,17 @@ namespace Localization
 
             return value;
         }
-        private string DictionaryVariablesCS(LanguageLocalizer localizer)
+        private string DictionaryVariablesCS(LocalizationItem localizer)
         {
             string value = string.Empty;
 
-            value = "\t\t{\"" + localizer.language + "\",\n\t\t\tnew Dictionary<string,string>()\n\t\t\t{";
+            value = "\t\t{\"" + localizer.Language + "\",\n\t\t\tnew Dictionary<string,string>()\n\t\t\t{";
 
-            LanguageLocalizer.StringKeyValue[] stringKeyValue = localizer.stringsCollections;
-            for (int i = 0; i < stringKeyValue.Length; i++)
+            Dictionary<string, string> stringKeyValue = localizer.StringsCollections;
+            foreach (var item in stringKeyValue)
             {
                 value += "\n\t\t\t\t{";
-                value += $"\"{stringKeyValue[i].key}\",\"{stringKeyValue[i].value}\"";
+                value += $"\"{item.Key}\",\"{item.Value}\"";
                 value += "},";
             }
 
