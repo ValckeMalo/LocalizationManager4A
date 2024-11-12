@@ -1,0 +1,71 @@
+using System.Collections.Generic;
+
+public static class LocalizerManager
+{
+    private static Dictionary<string, Dictionary<string, string>> localizerCollections = new Dictionary<string, Dictionary<string, string>>()
+    {
+/**/
+    };
+    private static string culture = string.Empty;
+
+    /// <summary>
+    /// return the count of language stored
+    /// </summary>
+    public static int LanguageCount { get => localizerCollections.Count; }
+
+    /// <summary>
+    /// Return the total of elements of the key
+    /// Return -1 if the key doesn't exist
+    /// </summary>
+    /// <param name="language"></param>
+    /// <returns></returns>
+    public static int KeyCount(string language)
+    {
+        if (language == null || !localizerCollections.ContainsKey(language))
+            return -1;
+
+        return localizerCollections[language].Count;
+    }
+
+    /// <summary>
+    /// return the string based on the language and key
+    /// </summary>
+    /// <param name="language"></param>
+    /// <param name="stringKey"></param>
+    /// <returns></returns>
+    public static string LocalizedStringOnLanguage(string language, string stringKey)
+    {
+        if (language == null || !localizerCollections.ContainsKey(language) || stringKey == null)
+            return string.Empty;
+
+        return localizerCollections[language][stringKey];
+    }
+
+    /// <summary>
+    /// return the string based on the culture set and the params key
+    /// </summary>
+    /// <param name="language"></param>
+    /// <param name="stringKey"></param>
+    /// <returns></returns>
+    public static string LocalizedString(string stringKey)
+    {
+        if (culture == null || !localizerCollections.ContainsKey(culture) || stringKey == null)
+            return string.Empty;
+
+        return localizerCollections[culture][stringKey];
+    }
+
+    /// <summary>
+    /// Set the culture
+    /// </summary>
+    /// <param name="language"></param>
+    /// <returns></returns>
+    public static bool SetCulture(string language)
+    {
+        if (!localizerCollections.ContainsKey(language))
+            return false;
+
+        culture = language;
+        return true;
+    }
+}

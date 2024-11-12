@@ -1,31 +1,54 @@
-﻿using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace Localization
+﻿namespace Localization
 {
+    using System.Windows;
+    using System.Collections.Generic;
+    using Localization.Plugin;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-	{
-		public MainWindow()
+    {
+        public MainWindow()
         {
             InitializeComponent();
-			InitializeDataGrid();
-		}
+            InitializeDataGrid();
+        }
 
-		private void DebugButton_Click(object sender, RoutedEventArgs e)
+        private void DebugButton_Click(object sender, RoutedEventArgs e)
         {
-            //GenerateClass(ClassExtension.CS, null);
+            List<LocalizationItem> allLanguages = new List<LocalizationItem>()
+            {
+                new LocalizationItem
+                (
+                    "fr",
+                    new List<StringValueKey>()
+                        {
+                            new StringValueKey() {Key = "Start",Value = "Debut" },
+                            new StringValueKey() {Key = "End",Value = "Fin" },
+                            new StringValueKey() {Key = "Hello",Value = "Bonjour" },
+                        }
+                ),
+
+                new LocalizationItem
+                (
+                    "en",
+                    new List<StringValueKey>()
+                        {
+                            new StringValueKey() {Key = "Start",Value = "Start" },
+                            new StringValueKey() {Key = "End",Value = "End" },
+                            new StringValueKey() {Key = "Hello",Value = "Hello" },
+                        }
+                ),
+            };
+
+            GenerateClass(EPlugin.CS, allLanguages);
+
+            GenerateClass(EPlugin.H_CPP, allLanguages);
+            GenerateClass(EPlugin.HPP_CPP, allLanguages);
+
+            GenerateClass(EPlugin.HPPInline, allLanguages);
+            GenerateClass(EPlugin.HInline, allLanguages);
         }
     }
 }

@@ -1,0 +1,77 @@
+#ifndef LOCALIZER_HPP
+#define LOCALIZER_HPP
+
+#include <iostream>
+#include <map>
+#include <string>
+
+namespace Localizer
+{
+	class Localizer
+	{
+	public:
+		// Constructeur et destructeur par défaut
+		Localizer() = default;
+		~Localizer() = default;
+
+		// Méthodes statiques inline
+		static int LanguageCount()
+		{
+			return static_cast<int>(localizerCollections.size());
+		}
+
+		static int KeyCount(const std::string& language)
+		{
+			if (localizerCollections.find(language) == localizerCollections.end()) {
+				return -1;
+			}
+			return static_cast<int>(localizerCollections[language].size());
+		}
+
+		static std::string LocalizedStringOnLanguage(const std::string& language, const std::string& stringKey)
+		{
+			if (localizerCollections.find(language) != localizerCollections.end() &&
+				localizerCollections[language].find(stringKey) != localizerCollections[language].end()) {
+				return localizerCollections[language][stringKey];
+			}
+			return "";
+		}
+
+		static std::string LocalizedString(const std::string& stringKey)
+		{
+			if (!culture.empty() &&
+				localizerCollections.find(culture) != localizerCollections.end() &&
+				localizerCollections[culture].find(stringKey) != localizerCollections[culture].end())
+			{
+				return localizerCollections[culture][stringKey];
+			}
+
+			std::cout << "Key not found or none language set: " << stringKey << std::endl;
+			return "";
+		}
+
+		static bool SetCulture(const std::string& language)
+		{
+			if (localizerCollections.find(language) != localizerCollections.end()) {
+				culture = language;
+				return true;
+			}
+
+			std::cout << "Language not found: " << language << std::endl;
+			return false;
+		}
+
+	private:
+		// Initialisation inline de la map statique
+		static std::map<std::string, std::map<std::string, std::string>> localizerCollections;
+		static std::string culture;
+	};
+
+	std::map<std::string, std::map<std::string, std::string>> Localizer::localizerCollections = {
+		/**/
+	};
+
+	std::string Localizer::culture;
+}
+
+#endif // LOCALIZER_HPP

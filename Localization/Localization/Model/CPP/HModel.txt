@@ -1,0 +1,28 @@
+#ifndef Localizer_H
+#define Localizer_H
+
+#include <iostream>
+#include <map>
+#include <string>
+
+namespace Localizer
+{
+	class Localizer
+	{
+	public:
+		Localizer();
+		~Localizer();
+
+		static int LanguageCount();
+		static int KeyCount(const std::string& language);
+		static std::string LocalizedStringOnLanguage(const std::string& language, const std::string& stringKey);
+		static std::string LocalizedString(const std::string& stringKey);
+		static bool SetCulture(const std::string& language);
+
+	private:
+		static std::map<std::string, std::map<std::string, std::string>> localizerCollections;
+		static std::string culture;
+	};
+}
+
+#endif // Localizer_H
