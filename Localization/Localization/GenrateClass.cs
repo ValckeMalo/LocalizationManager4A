@@ -11,7 +11,7 @@ namespace Localization
         private enum ClassExtension
         {
             CS,
-            CPP,
+            HCPP,
         }
 
         private const string cSharpExtension = ".cs";
@@ -20,7 +20,7 @@ namespace Localization
         private Dictionary<ClassExtension, string> classExtension = new Dictionary<ClassExtension, string>()
         {
             {ClassExtension.CS,".cs"},
-            {ClassExtension.CPP,".cpp"},
+            {ClassExtension.HCPP,".cpp"},
         };
 
         private struct LanguageLocalizer
@@ -59,24 +59,61 @@ namespace Localization
             }
         }
 
-        private void GenerateClass(ClassExtension extension, string path, LanguageLocalizer[] allLanguages)
+        private void GenerateClass(ClassExtension extension, LanguageLocalizer[] allLanguages)
         {
-            if (path == null)
-                return;
-
-            string model = File.ReadAllText("CSModel.txt");
-
-            string dictionary = string.Empty;
-
-            for (int i = 0; i < allLanguages.Length; i++)
+            if (extension == ClassExtension.CS)
             {
-                dictionary += DictionaryVariablesCS(allLanguages[i]);
-            }
+                string model = File.ReadAllText("Model/CS/CSModel.txt");
 
-            model = model.Replace("/**/", dictionary);
-            File.WriteAllText(path + classExtension[extension], model);
+                string dictionary = string.Empty;
+
+                for (int i = 0; i < allLanguages.Length; i++)
+                {
+                    dictionary += DictionaryVariablesCS(allLanguages[i]);
+                }
+
+                model = model.Replace("/**/", dictionary);
+                File.WriteAllText("GenClass/Localizer.cs", model);
+            }
+            else if (extension == ClassExtension.HCPP)
+            {
+
+                string modelCpp = File.ReadAllText("Model/CPP/CPPModel.txt");
+                string modelH = File.ReadAllText("Model/CPP/HModel.txt");
+
+                string map = string.Empty;
+
+                for (int i = 0; i < allLanguages.Length; i++)
+                {
+                    map += MapVariablesCPP(allLanguages[i]);
+                }
+
+                modelCpp = modelCpp.Replace("/**/", map);
+
+                File.WriteAllText("GenClass/Localizer.cpp", modelCpp);
+                File.WriteAllText("GenClass/Localizer.h", modelH);
+            }
         }
 
+        private string MapVariablesCPP(LanguageLocalizer localizer)
+        {
+            string value = string.Empty;
+
+            value = "{\"" + localizer.language + "\",\n" +
+                "\t\t\t{";
+
+            LanguageLocalizer.StringKeyValue[] stringKeyValue = localizer.stringsCollections;
+            for (int i = 0; i < stringKeyValue.Length; i++)
+            {
+                value += "\n\t\t\t\t{";
+                value += $"\"{stringKeyValue[i].key}\",\"{stringKeyValue[i].value}\"";
+                value += "},";
+            }
+
+            value += "\n\t\t\t}\n\t\t},\n\n";
+
+            return value;
+        }
         private string DictionaryVariablesCS(LanguageLocalizer localizer)
         {
             string value = string.Empty;

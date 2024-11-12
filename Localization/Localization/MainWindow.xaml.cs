@@ -25,8 +25,13 @@ namespace Localization
 
 		private void DebugButton_Click(object sender, RoutedEventArgs e)
         {
-            LanguageLocalizer[] languageLocalizers = [new LanguageLocalizer("fr", new LanguageLocalizer.StringKeyValue("Play", "Jouer"), new LanguageLocalizer.StringKeyValue("Settings", "Options")), new LanguageLocalizer("en", new LanguageLocalizer.StringKeyValue("Play", "Play"), new LanguageLocalizer.StringKeyValue("Settings", "Settings"))];
-            GenerateClass(ClassExtension.CS, "Debug", languageLocalizers);
+            LanguageLocalizer[] languageLocalizers = [new LanguageLocalizer("fr", new LanguageLocalizer.StringKeyValue("Play", "Jouer"), 
+                                                          new LanguageLocalizer.StringKeyValue("Settings", "Options")), 
+
+                                                      new LanguageLocalizer("en", new LanguageLocalizer.StringKeyValue("Play", "Play"), 
+                                                          new LanguageLocalizer.StringKeyValue("Settings", "Settings"))];
+
+            GenerateClass(ClassExtension.CS, languageLocalizers);
         }
     }
 }

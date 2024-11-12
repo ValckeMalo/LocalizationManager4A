@@ -2,31 +2,37 @@
 
 public class LocalizationItem : INotifyPropertyChanged
 {
-	private string _key;
-	private List<string> _languages;
+	private string language = string.Empty;
+	private Dictionary<string,string> stringsCollections = new Dictionary<string, string>();
 
-	public string Key
+    public LocalizationItem(string language,Dictionary<string,string> stringsCollections)
 	{
-		get => _key;
+		this.language = language;
+		this.stringsCollections = stringsCollections;
+	}
+
+    public Dictionary<string, string> StringsCollections
+    {
+		get => stringsCollections;
 		set
 		{
-			if (_key != value)
+			if (stringsCollections != value)
 			{
-				_key = value;
-				OnPropertyChanged(nameof(Key));
+                stringsCollections = value;
+				OnPropertyChanged(nameof(stringsCollections));
 			}
 		}
 	}
 
-	public List<string> Languages
+	public string Language
 	{
-		get => _languages;
+		get => language;
 		set
 		{
-			if (_languages != value)
+			if (language != value)
 			{
-				_languages = value;
-				OnPropertyChanged(nameof(Languages));
+                language = value;
+				OnPropertyChanged(nameof(language));
 			}
 		}
 	}
