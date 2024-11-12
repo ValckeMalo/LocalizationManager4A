@@ -43,16 +43,16 @@ public class LocalizationItem : INotifyPropertyChanged
 
 public class StringValueKey : INotifyPropertyChanged
 {
-	private string key;
-	private string value;
+	private string key = string.Empty;
+	private string value = string.Empty;
 
 	public string Key
 	{
 		get => key;
 		set
 		{
-			key = value;
-			OnPropertyChanged(nameof(key));
+			this.key = value;
+			OnPropertyChanged(nameof(this.key));
 		}
 	}
 
@@ -61,8 +61,8 @@ public class StringValueKey : INotifyPropertyChanged
 		get => value;
 		set
 		{
-			value = value;
-			OnPropertyChanged(nameof(value));
+			this.value = value;
+			OnPropertyChanged(nameof(this.value));
 		}
 	}
 
