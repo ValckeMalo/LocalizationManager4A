@@ -16,6 +16,8 @@
 
             modelCpp = modelCpp.Replace(replaceString, map);
 
+            TryDirectoryPath();
+
             File.WriteAllText(DirectoryPath + FileName + ".cpp", modelCpp);
             File.WriteAllText(DirectoryPath + FileName + ".hpp", modelH);
         }

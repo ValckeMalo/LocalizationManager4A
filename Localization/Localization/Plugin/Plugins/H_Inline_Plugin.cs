@@ -15,6 +15,8 @@
 
             modelhInline = modelhInline.Replace(replaceString, map);
 
+            TryDirectoryPath();
+
             File.WriteAllText(DirectoryPath + FileName + ".h", modelhInline);
         }
 

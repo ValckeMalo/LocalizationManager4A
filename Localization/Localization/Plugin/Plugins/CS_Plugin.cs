@@ -15,6 +15,9 @@
             dictionary = GenerateLocalizerVariable(allLanguages);
 
             model = model.Replace(replaceString, dictionary);
+
+            TryDirectoryPath();
+
             File.WriteAllText(DirectoryPath + FileName + ".cs", model);
         }
 

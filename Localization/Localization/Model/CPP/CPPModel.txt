@@ -1,0 +1,61 @@
+#include "Localizer.h"
+
+namespace Localizer
+{
+	std::map<std::string, std::map<std::string, std::string>> Localizer::localizerCollections =
+	{
+		/**/
+	};
+
+	std::string Localizer::culture;
+
+	Localizer::Localizer() {}
+
+	Localizer::~Localizer() {}
+
+	int Localizer::LanguageCount()
+	{
+		return static_cast<int>(localizerCollections.size());
+	}
+
+	int Localizer::KeyCount(const std::string& language)
+	{
+		if (localizerCollections.find(language) == localizerCollections.end()) {
+			return -1;
+		}
+		return static_cast<int>(localizerCollections[language].size());
+	}
+
+	std::string Localizer::LocalizedStringOnLanguage(const std::string& language, const std::string& stringKey)
+	{
+		if (localizerCollections.find(language) != localizerCollections.end() &&
+			localizerCollections[language].find(stringKey) != localizerCollections[language].end()) {
+			return localizerCollections[language][stringKey];
+		}
+		return "";
+	}
+
+	std::string Localizer::LocalizedString(const std::string& stringKey)
+	{
+		if (!culture.empty() &&
+			localizerCollections.find(culture) != localizerCollections.end() &&
+			localizerCollections[culture].find(stringKey) != localizerCollections[culture].end())
+		{
+			return localizerCollections[culture][stringKey];
+		}
+
+		std::cout << "Key not found or none language put " << stringKey << std::endl;
+		return "";
+	}
+
+	bool Localizer::SetCulture(const std::string& language)
+	{
+		if (localizerCollections.find(language) != localizerCollections.end()) {
+			culture = language;
+			return true;
+		}
+
+		std::cout << "Language not found " << language << std::endl;
+		return false;
+	}
+}
