@@ -43,7 +43,12 @@
             };
 
             GenerateClass(EPlugin.CS, allLanguages);
+
             GenerateClass(EPlugin.H_CPP, allLanguages);
+            GenerateClass(EPlugin.HPP_CPP, allLanguages);
+
+            GenerateClass(EPlugin.HPPInline, allLanguages);
+            GenerateClass(EPlugin.HInline, allLanguages);
         }
     }
 }
