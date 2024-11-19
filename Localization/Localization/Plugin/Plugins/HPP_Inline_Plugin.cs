@@ -17,7 +17,7 @@
 
             TryDirectoryPath(directoryPath);
 
-            File.WriteAllText(directoryPath + FileName + ".hpp", modelhInline);
+            File.WriteAllText(directoryPath + "/" + FileName + ".hpp", modelhInline);
         }
 
         protected override string GenerateLanguageVariable(LocalizationItem localizationItem)

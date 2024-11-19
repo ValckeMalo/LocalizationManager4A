@@ -18,8 +18,8 @@
 
             TryDirectoryPath(directoryPath);
 
-            File.WriteAllText(directoryPath + FileName + ".cpp", modelCpp);
-            File.WriteAllText(directoryPath + FileName + ".h", modelH);
+            File.WriteAllText(directoryPath + "/"+ FileName + ".cpp", modelCpp);
+            File.WriteAllText(directoryPath + "/" + FileName + ".h", modelH);
         }
 
         protected override string GenerateLocalizerVariable(List<LocalizationItem> allLanguages)

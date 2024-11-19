@@ -42,7 +42,6 @@ namespace Localization
         public void ExportToJSON(List<LocalizationItem> items, string filePath, string fileName)
         {
             var json = JsonSerializer.Serialize(items);
-            List<LocalizationItem> items2 = JsonSerializer.Deserialize<List<LocalizationItem>>(string.Empty);
             TryDirectoryPath(filePath);
             File.WriteAllText($"{filePath}/{fileName}.json", json);
         }

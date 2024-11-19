@@ -5,7 +5,7 @@
 
     public class HPP_CPP_Plugin : Plugin
     {
-        public override void GenerateClass(List<LocalizationItem> allLanguages,string directoryPath)
+        public override void GenerateClass(List<LocalizationItem> allLanguages, string directoryPath)
         {
             string modelCpp = File.ReadAllText(modelPath + "CPP/CPPModel.txt");
             string modelH = File.ReadAllText(modelPath + "CPP/HPPModel.txt");
@@ -18,8 +18,8 @@
 
             TryDirectoryPath(directoryPath);
 
-            File.WriteAllText(directoryPath + FileName + ".cpp", modelCpp);
-            File.WriteAllText(directoryPath + FileName + ".hpp", modelH);
+            File.WriteAllText(directoryPath + "/" + FileName + ".cpp", modelCpp);
+            File.WriteAllText(directoryPath + "/" + FileName + ".hpp", modelH);
         }
 
         protected override string GenerateLanguageVariable(LocalizationItem localizationItem)
