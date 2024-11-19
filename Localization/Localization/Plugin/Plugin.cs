@@ -4,7 +4,7 @@ namespace Localization.Plugin
 {
     public abstract class Plugin : IPlugin
     {
-        protected string modelPath = "../../../Model/";
+        protected string modelPath = "Model/";
         protected string replaceString = "/**/";
 
         protected const string FileName = "Localizer";
