@@ -105,6 +105,14 @@ namespace Localization
 			dataGrid.ItemsSource = dictStringValueKeys[header];
 			dataGrid.CanUserAddRows = false;
 
+			dataGrid.Loaded += (s, e) =>
+			{
+				if (dataGrid.Columns.Count > 0)
+				{
+					dataGrid.Columns[0].IsReadOnly = true;
+				}
+			};
+
 			foreach (Keys keyItem in keysItems)
 			{
 				newKeyValue.Add(new StringValueKey() { Key = keyItem.Key, Value = string.Empty });
