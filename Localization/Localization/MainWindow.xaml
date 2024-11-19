@@ -50,6 +50,7 @@
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem x:Name="RemoveCurrentLanguage" Header="Remove current language" Click="RemoveCurrentLanguage_Click" />
+                <MenuItem x:Name="Debug" Header="Debug" Click="Debug_Click" />
             </MenuItem>
         </Menu>
 

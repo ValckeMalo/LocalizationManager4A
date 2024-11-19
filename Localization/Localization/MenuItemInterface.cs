@@ -7,22 +7,22 @@ namespace Localization
     {
         private void NewFileButton_Click(object sender, RoutedEventArgs e)
         {
-            LocalizationItems = null;
+            ClearTables();
         }
 
         private void ImportCsvButton_Click(object sender, RoutedEventArgs e)
         {
-            LocalizationItems = ImportFromCSV("CSV/masterCSV.csv");
+			UpdateTables(ImportFromCSV("CSV/masterCSV.csv"));
         }
 
         private void ImportJsonButton_Click(object sender, RoutedEventArgs e)
 		{
-            LocalizationItems = ImportFromJSON("Json/masterJson.json");
+			UpdateTables(ImportFromJSON("Json/masterJson.json"));
 		}
 
         private void ImportXmlButton_Click(object sender, RoutedEventArgs e)
         {
-            LocalizationItems = ImportFromXML("XML/masterXML.xml");
+			UpdateTables(ImportFromXML("XML/masterXML.xml"));
         }
 
         private void ExportCsvButton_Click(object sender, RoutedEventArgs e)
