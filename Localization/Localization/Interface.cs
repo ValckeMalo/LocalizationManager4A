@@ -1,11 +1,13 @@
 ﻿using System.Collections.ObjectModel;
-using System.Security.Cryptography;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Localization
 {
-    public partial class MainWindow : Window
+	public partial class MainWindow : Window
 	{
 		private string previousValueRegister = string.Empty;
 		private ObservableCollection<Keys> keysItems;
@@ -27,42 +29,41 @@ namespace Localization
 
                 return result;
             }
-            set
+        }
+
+        public void ClearTables()
+        {
+			MainTabControl.SelectedIndex = 0;
+
+			keysItems.Clear();
+            dictStringValueKeys.Clear();
+
+            for (int i = MainTabControl.Items.Count - 2; i > 0; i--)
             {
-                MainTabControl.SelectedIndex = 0;
-                keysItems.Clear();
+                MainTabControl.Items.RemoveAt(i);
+			}
+		}
 
-                if (value == null)
+        public void UpdateTables(List<LocalizationItem> localizationItem)
+        {
+            ClearTables();
+
+            foreach (var item in localizationItem)
+            {
+				foreach (var stringCollection in item.StringsCollections)
                 {
-                    for (int i = MainTabControl.Items.Count - 2; i >= 1; i--)
-                    {
-                        MainTabControl.Items.RemoveAt(i);
-                    }
+					if (!keysItems.Any(x => x.Key == stringCollection.Key))
+                        keysItems.Add(new Keys { Key = stringCollection.Key });
+				}
 
-                    dictStringValueKeys.Clear();
-                    return;
-                }
+				AddTabItem(MainTabControl, item.Language);
 
-                for (int i = 1; i < MainTabControl.Items.Count - 1; i++)
-                {
-                    TabItem tabItem = (TabItem)MainTabControl.Items[i];
-                    string header = $"{tabItem.Header}";
-
-                    LocalizationItem localizationItem = value.FirstOrDefault(item => item.Language == header);
-
-                    if (localizationItem != null)
-                    {
-                        if (dictStringValueKeys.ContainsKey(header))
-                            dictStringValueKeys[header] = new ObservableCollection<StringValueKey>(localizationItem.StringsCollections);
-                        else
-                            dictStringValueKeys.Add(header, new ObservableCollection<StringValueKey>(localizationItem.StringsCollections));
-
-                        tabItem.Header = localizationItem.Language;
-
-                        keysItems.Add(new Keys { Key = header });
-                    }
-                }
-            }
+				foreach (var stringCollection in item.StringsCollections)
+				{
+					StringValueKey? stringValueKey = dictStringValueKeys[item.Language].FirstOrDefault(x => x.Key == stringCollection.Key);
+					stringValueKey.Value = stringCollection.Value;
+				}
+			}
         }
 
 		private void InitializeDataGrid()
@@ -78,41 +79,43 @@ namespace Localization
             {
             	AddTabItem(MainTabControl);
             }
-        }
+		}
 
 		private void AddTabItem(TabControl tabControl)
 		{
-			int count = tabControl.Items.Count;
-            tabControl.SelectedIndex = 0;
+			tabControl.SelectedIndex = 0;
 
-            // ASK TAB NAME
-            InputDialog inputDialog = new InputDialog();
+			// ASK TAB NAME
+			InputDialog inputDialog = new InputDialog();
 			if (inputDialog.ShowDialog() == true)
 			{
-				string header = inputDialog.InputValue;
+                AddTabItem(tabControl, inputDialog.InputValue);
+			}
+		}
 
-				// CREATE TAB
-				var tabItem = new TabItem { Header = header };
-				var dataGrid = new DataGrid { Name = $"DataGrid_{header}" };
+		private void AddTabItem(TabControl tabControl, string header)
+		{
+			// CREATE TAB
+			var tabItem = new TabItem { Header = header };
+			var dataGrid = new DataGrid { Name = $"DataGrid_{header}" };
 
-				ObservableCollection<StringValueKey> newKeyValue = new ObservableCollection<StringValueKey>();
-				dictStringValueKeys.Add(header, newKeyValue);
-				dataGrid.ItemsSource = dictStringValueKeys[header];
-				dataGrid.CanUserAddRows = false;
+			ObservableCollection<StringValueKey> newKeyValue = new ObservableCollection<StringValueKey>();
+			dictStringValueKeys.Add(header, newKeyValue);
+			dataGrid.ItemsSource = dictStringValueKeys[header];
+			dataGrid.CanUserAddRows = false;
 
-				foreach (Keys keyItem in keysItems)
-				{
-					newKeyValue.Add(new StringValueKey() { Key = keyItem.Key, Value = string.Empty });
-				}
+			foreach (Keys keyItem in keysItems)
+			{
+				newKeyValue.Add(new StringValueKey() { Key = keyItem.Key, Value = string.Empty });
+			}
 
-				tabItem.Content = dataGrid;
+			tabItem.Content = dataGrid;
 
-				// INSERT TAB
-				tabControl.Items.Insert(count - 1, tabItem);
-            }
-        }
+			// INSERT TAB
+			tabControl.Items.Insert(tabControl.Items.Count - 1, tabItem);
+		}
 
-        private void RemoveTabItem(TabControl tabControl)
+		private void RemoveTabItem(TabControl tabControl)
         {
             int currentIndex = tabControl.SelectedIndex;
             tabControl.SelectedIndex = 0;
