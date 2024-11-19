@@ -7,6 +7,10 @@ public class LocalizationItem : INotifyPropertyChanged
     private string language = string.Empty;
     private List<StringValueKey> stringsCollections;
 
+	public LocalizationItem()
+	{
+        this.stringsCollections = new List<StringValueKey>();
+    }
     public LocalizationItem(string language, List<StringValueKey> stringsCollections)
     {
         this.language = language;
