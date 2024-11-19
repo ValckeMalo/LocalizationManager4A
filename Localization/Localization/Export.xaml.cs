@@ -29,14 +29,10 @@ namespace Localization
 
             foreach (var item in items)
             {
-                sb.Append(item.Language);
-
                 foreach (var stringValue in item.StringsCollections)
                 {
-                    sb.Append($",{stringValue.Key},{stringValue.Value}");
+                    sb.Append($"{item.Language},{stringValue.Key},{stringValue.Value},\n");
                 }
-
-                sb.AppendLine();
             }
 
             TryDirectoryPath(filePath);

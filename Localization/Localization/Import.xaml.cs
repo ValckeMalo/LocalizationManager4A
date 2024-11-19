@@ -13,40 +13,46 @@ namespace Localization
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    
+
     public partial class MainWindow : Window
     {
         public List<LocalizationItem> ImportFromCSV(string filePath)
         {
-            var items = new List<LocalizationItem>();
+            var items = new Dictionary<string, LocalizationItem>();
 
             using (var parser = new TextFieldParser(filePath))
             {
                 parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
+                parser.HasFieldsEnclosedInQuotes = false;
 
                 while (!parser.EndOfData)
                 {
                     string[] fields = parser.ReadFields();
-
-                    string language = fields[0];
-                    var stringsCollections = new List<StringValueKey>();
-
-                    for (int i = 1; i < fields.Length; i += 2)
+                    if (fields.Length < 3)
                     {
-                        var stringValueKey = new StringValueKey
-                        {
-                            Key = fields[i],
-                            Value = fields[i + 1]
-                        };
-                        stringsCollections.Add(stringValueKey);
+                        throw new Exception("Le fichier CSV contient des lignes invalides.");
                     }
 
-                    items.Add(new LocalizationItem(language, stringsCollections));
+                    string language = fields[0];
+                    string key = fields[1];
+                    string value = fields[2];
+
+                    if (!items.TryGetValue(language, out var localizationItem))
+                    {
+                        localizationItem = new LocalizationItem(language, new List<StringValueKey>());
+                        items.Add(language, localizationItem);
+                    }
+
+                    localizationItem.StringsCollections.Add(new StringValueKey
+                    {
+                        Key = key,
+                        Value = value
+                    });
                 }
             }
 
-            return items;
+            return new List<LocalizationItem>(items.Values);
+
         }
 
         public List<LocalizationItem> ImportFromJSON(string filePath)
