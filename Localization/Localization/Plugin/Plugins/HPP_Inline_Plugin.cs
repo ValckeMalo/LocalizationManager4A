@@ -5,7 +5,7 @@
 
     public class HPP_Inline_Plugin : Plugin
     {
-        public override void GenerateClass(List<LocalizationItem> allLanguages)
+        public override void GenerateClass(List<LocalizationItem> allLanguages,string directoryPath)
         {
             string modelhInline = File.ReadAllText(modelPath + "CPP/HPPInlineModel.txt");
 
@@ -15,12 +15,9 @@
 
             modelhInline = modelhInline.Replace(replaceString, map);
 
-            TryDirectoryPath();
+            TryDirectoryPath(directoryPath);
 
-            string path = DirectoryPath + "HPPInline/";
-            TryDirectoryPath(path);
-
-            File.WriteAllText(path + FileName + ".hpp", modelhInline);
+            File.WriteAllText(directoryPath + FileName + ".hpp", modelhInline);
         }
 
         protected override string GenerateLanguageVariable(LocalizationItem localizationItem)

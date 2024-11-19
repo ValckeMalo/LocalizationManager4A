@@ -6,7 +6,7 @@
 
     public class CS_Plugin : Plugin
     {
-        public override void GenerateClass(List<LocalizationItem> allLanguages)
+        public override void GenerateClass(List<LocalizationItem> allLanguages, string directoryPath)
         {
             string model = File.ReadAllText(modelPath + "CS/CSModel.txt");
 
@@ -16,12 +16,9 @@
 
             model = model.Replace(replaceString, dictionary);
 
-            TryDirectoryPath();
+            TryDirectoryPath(directoryPath);
 
-            string path = DirectoryPath + "CS/";
-            TryDirectoryPath(path);
-
-            File.WriteAllText(path + FileName + ".cs", model);
+            File.WriteAllText(directoryPath + FileName + ".cs", model);
         }
 
         protected override string GenerateLocalizerVariable(List<LocalizationItem> allLanguages)

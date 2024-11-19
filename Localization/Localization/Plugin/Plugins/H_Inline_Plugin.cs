@@ -5,7 +5,7 @@
 
     public class H_Inline_Plugin : Plugin
     {
-        public override void GenerateClass(List<LocalizationItem> allLanguages)
+        public override void GenerateClass(List<LocalizationItem> allLanguages,string directoryPath)
         {
             string modelhInline = File.ReadAllText(modelPath + "CPP/HInlineModel.txt");
 
@@ -15,12 +15,9 @@
 
             modelhInline = modelhInline.Replace(replaceString, map);
 
-            TryDirectoryPath();
+            TryDirectoryPath(directoryPath);
 
-            string path = DirectoryPath + "HInline/";
-            TryDirectoryPath(path);
-
-            File.WriteAllText(path + FileName + ".h", modelhInline);
+            File.WriteAllText(directoryPath + FileName + ".h", modelhInline);
         }
 
         protected override string GenerateLanguageVariable(LocalizationItem localizationItem)

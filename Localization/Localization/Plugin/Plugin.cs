@@ -10,7 +10,7 @@ namespace Localization.Plugin
         protected const string FileName = "Localizer";
         protected const string DirectoryPath = "GenClass/";
 
-        public abstract void GenerateClass(List<LocalizationItem> allLanguages);
+        public abstract void GenerateClass(List<LocalizationItem> allLanguages,string path);
         protected abstract string GenerateLocalizerVariable(List<LocalizationItem> allLanguages);
         protected abstract string GenerateLanguageVariable(LocalizationItem localizationItem);
 

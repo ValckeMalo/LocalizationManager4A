@@ -5,7 +5,7 @@
 
     public partial class MainWindow : Window
     {
-        private void GenerateClass(EPlugin Eplugin, List<LocalizationItem> allLanguages)
+        private void GenerateClass(EPlugin Eplugin, List<LocalizationItem> allLanguages, string path)
         {
             Plugin.Plugin? plugin = PluginManager.GetDefaultPlugin(Eplugin);
 
@@ -15,7 +15,7 @@
                 return;
             }
 
-            plugin.GenerateClass(allLanguages);
+            plugin.GenerateClass(allLanguages,path);
         }
     }
 }
