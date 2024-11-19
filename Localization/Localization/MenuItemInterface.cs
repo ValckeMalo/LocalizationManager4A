@@ -14,7 +14,8 @@ namespace Localization
         private void ImportCsvButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
-			dialog.FileName = "Import CSV file";
+			dialog.FileName = "localizationFile";
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.DefaultExt = ".csv";
 			dialog.Filter = "CSV file (.csv)|*.csv";
 
@@ -25,7 +26,8 @@ namespace Localization
         private void ImportJsonButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
-			dialog.FileName = "Import JSON file";
+			dialog.FileName = "localizationFile";
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.DefaultExt = ".json";
 			dialog.Filter = "JSON file (.json)|*.json";
 
@@ -36,7 +38,8 @@ namespace Localization
         private void ImportXmlButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
-			dialog.FileName = "Import XML file";
+			dialog.FileName = "localizationFile";
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.DefaultExt = ".xml";
 			dialog.Filter = "XML file (.xml)|*.xml";
 
@@ -47,7 +50,8 @@ namespace Localization
         private void ExportCsvButton_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.FileName = "Export your CSV file";
+			dialog.FileName = "localizationFile";
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.DefaultExt = ".csv";
 			dialog.Filter = "CSV file (.csv)|*.csv";
 
@@ -65,7 +69,8 @@ namespace Localization
         private void ExportJsonButton_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.FileName = "Export your JSON file";
+			dialog.FileName = "localizationFile";
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.DefaultExt = ".json";
 			dialog.Filter = "JSON file (.json)|*.json";
 
@@ -83,7 +88,8 @@ namespace Localization
         private void ExportXmlButton_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.FileName = "Export your XML file";
+			dialog.FileName = "localizationFile";
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.DefaultExt = ".xml";
 			dialog.Filter = "XML file (.xml)|*.xml";
 
@@ -101,7 +107,7 @@ namespace Localization
         private void ExportCsButton_Click(object sender, RoutedEventArgs e)
         {
 			OpenFolderDialog dialog = new OpenFolderDialog();
-
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.Multiselect = false;
 			dialog.Title = "Select a folder";
 
@@ -115,7 +121,7 @@ namespace Localization
         private void ExportHCppButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFolderDialog dialog = new OpenFolderDialog();
-
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.Multiselect = false;
 			dialog.Title = "Select a folder";
 
@@ -129,7 +135,7 @@ namespace Localization
         private void ExportHInlineButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFolderDialog dialog = new OpenFolderDialog();
-
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.Multiselect = false;
 			dialog.Title = "Select a folder";
 
@@ -143,7 +149,7 @@ namespace Localization
         private void ExportHppCppButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFolderDialog dialog = new OpenFolderDialog();
-
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.Multiselect = false;
 			dialog.Title = "Select a folder";
 
@@ -157,7 +163,7 @@ namespace Localization
         private void ExportHppInlineButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFolderDialog dialog = new OpenFolderDialog();
-
+			dialog.DefaultDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
 			dialog.Multiselect = false;
 			dialog.Title = "Select a folder";
 
