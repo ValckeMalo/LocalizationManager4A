@@ -48,14 +48,11 @@
                     </MenuItem>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit">
-                <MenuItem x:Name="RemoveCurrentLanguage" Header="Remove current language" Click="RemoveCurrentLanguage_Click" />
-            </MenuItem>
         </Menu>
 
         <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Master">
-                <DataGrid x:Name="DataGrid_Master" BeginningEdit="DataGrid_Master_BeginningEdit" CellEditEnding="DataGrid_Master_CellEditEnding">
+                <DataGrid x:Name="DataGrid_Master" BeginningEdit="DataGrid_Master_BeginningEdit" CellEditEnding="DataGrid_Master_CellEditEnding" PreviewKeyDown="DataGrid_Master_PreviewKeyDown">
                     <DataGrid.Columns>
 
                     </DataGrid.Columns>

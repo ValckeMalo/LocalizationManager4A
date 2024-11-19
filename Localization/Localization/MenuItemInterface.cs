@@ -173,13 +173,5 @@ namespace Localization
 				ExportToJSON(LocalizationItems, dialog.FolderName, "autoSave");
 			}
         }
-
-        private void RemoveCurrentLanguage_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainTabControl.SelectedIndex > 0 && MainTabControl.SelectedIndex < MainTabControl.Items.Count - 1)
-            {
-                RemoveTabItem(MainTabControl);
-            }
-        }
     }
 }

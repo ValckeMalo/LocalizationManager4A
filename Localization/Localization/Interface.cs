@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Localization
 {
@@ -111,22 +112,33 @@ namespace Localization
 
 			tabItem.Content = dataGrid;
 
+            tabItem.MouseRightButtonDown += (sender, e) =>
+			{
+				var contextMenu = new ContextMenu();
+
+				var menuItem1 = new MenuItem { Header = "Delete" };
+				menuItem1.Click += (s, args) =>
+				{
+					RemoveTabItem(MainTabControl, tabItem);
+				};
+
+				contextMenu.Items.Add(menuItem1);
+
+				contextMenu.IsOpen = true;
+
+				e.Handled = true;
+			};
+
 			// INSERT TAB
 			tabControl.Items.Insert(tabControl.Items.Count - 1, tabItem);
 		}
 
-		private void RemoveTabItem(TabControl tabControl)
-        {
-            int currentIndex = tabControl.SelectedIndex;
-            tabControl.SelectedIndex = 0;
+		private void RemoveTabItem(TabControl tabControl, TabItem item)
+		{
+			tabControl.Items.Remove(item);
+		}
 
-            if (currentIndex >= 0 && currentIndex < tabControl.Items.Count - 1)
-            {
-                tabControl.Items.RemoveAt(currentIndex);
-            }
-        }
-
-        private void DataGrid_Master_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+		private void DataGrid_Master_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             if (e.Row.Item is Keys keyContain)
             {
@@ -135,31 +147,56 @@ namespace Localization
         }
 
         private void DataGrid_Master_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            for (int i = 1; i < MainTabControl.Items.Count - 1; i++)
-            {
-                TabItem tabItem = (TabItem)MainTabControl.Items[i];
-                string header = $"{tabItem.Header}";
+		{
+			for (int i = 1; i < MainTabControl.Items.Count - 1; i++)
+			{
+				TabItem tabItem = (TabItem)MainTabControl.Items[i];
+				string header = $"{tabItem.Header}";
 
-                if (e.EditingElement is TextBox textBox)
-                {
-                    string newKey = textBox.Text;
+				if (e.EditingElement is TextBox textBox)
+				{
+					string newKey = textBox.Text;
 
 					StringValueKey toModify = dictStringValueKeys[header].FirstOrDefault(x => x.Key == previousValueRegister);
-                    if (toModify != null)
-                    {
-                        toModify.Key = newKey;
-                    }
-                    else
-                    {
-                        dictStringValueKeys[header].Add(new StringValueKey
-                        {
-                            Key = newKey,
-                            Value = string.Empty
-                        });
-                    }
-                }
-            }
-        }
-    }
+					if (toModify != null)
+					{
+						toModify.Key = newKey;
+					}
+					else
+					{
+						dictStringValueKeys[header].Add(new StringValueKey
+						{
+							Key = newKey,
+							Value = string.Empty
+						});
+					}
+				}
+			}
+		}
+
+		private void DataGrid_Master_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (e.Key == Key.Delete && DataGrid_Master.SelectedItem is Keys selectedKey)
+			{
+				string keyToRemove = selectedKey.Key;
+
+				// Confirm deletion
+				if (MessageBox.Show($"Are you sure you want to delete the key '{keyToRemove}'?",
+					"Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				{
+					// Remove from master list and all tabs
+					keysItems.Remove(selectedKey);
+
+					foreach (var languageCollection in dictStringValueKeys.Values)
+					{
+						var itemToRemove = languageCollection.FirstOrDefault(x => x.Key == keyToRemove);
+						if (itemToRemove != null)
+							languageCollection.Remove(itemToRemove);
+					}
+				}
+
+				e.Handled = true;
+			}
+		}
+	}
 }
