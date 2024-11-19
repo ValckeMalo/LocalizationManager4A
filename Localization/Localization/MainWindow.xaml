@@ -29,7 +29,7 @@
             <MenuItem Header="File">
                 <MenuItem x:Name="NewFileButton" Header="New File" InputGestureText="Ctrl+F" Click="NewFileButton_Click" />
 
-                <MenuItem Header="Import to ...">
+                <MenuItem Header="Import from ...">
                     <MenuItem x:Name="ImportCsvButton" Header="CSV" IsEnabled="True" Click="ImportCsvButton_Click" />
                     <MenuItem x:Name="ImportJsonButton" Header="Json" IsEnabled="True" Click="ImportJsonButton_Click" />
                     <MenuItem x:Name="ImportXmlButton" Header="XML" IsEnabled="True" Click="ImportXmlButton_Click" />

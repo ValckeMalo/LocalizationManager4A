@@ -12,17 +12,17 @@ namespace Localization
 
         private void ImportCsvButton_Click(object sender, RoutedEventArgs e)
         {
-            ImportFromCSV("CSV");
+            LocalizationItems = ImportFromCSV("CSV/masterCSV.csv");
         }
 
         private void ImportJsonButton_Click(object sender, RoutedEventArgs e)
 		{
-			ImportFromJSON("Json");
+            LocalizationItems = ImportFromJSON("Json/masterJson.json");
 		}
 
         private void ImportXmlButton_Click(object sender, RoutedEventArgs e)
         {
-            ImportFromXML("CSV");
+            LocalizationItems = ImportFromXML("XML/masterXML.xml");
         }
 
         private void ExportCsvButton_Click(object sender, RoutedEventArgs e)
