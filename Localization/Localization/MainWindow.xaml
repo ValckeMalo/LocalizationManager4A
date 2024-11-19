@@ -30,16 +30,16 @@
                 <MenuItem x:Name="NewFileButton" Header="New File" InputGestureText="Ctrl+F" Click="NewFileButton_Click" />
 
                 <MenuItem Header="Import to ...">
-                    <MenuItem x:Name="ImportCsvButton" Header="CSV" IsEnabled="False" Click="ImportCsvButton_Click" />
-                    <MenuItem x:Name="ImportJsonButton" Header="Json" IsEnabled="False" Click="ImportJsonButton_Click" />
-                    <MenuItem x:Name="ImportXmlButton" Header="XML" IsEnabled="False" Click="ImportXmlButton_Click" />
+                    <MenuItem x:Name="ImportCsvButton" Header="CSV" IsEnabled="True" Click="ImportCsvButton_Click" />
+                    <MenuItem x:Name="ImportJsonButton" Header="Json" IsEnabled="True" Click="ImportJsonButton_Click" />
+                    <MenuItem x:Name="ImportXmlButton" Header="XML" IsEnabled="True" Click="ImportXmlButton_Click" />
                 </MenuItem>
 
                 <MenuItem Header="Export to ...">
-                    <MenuItem x:Name="ExportCsvButton" Header="CSV" IsEnabled="False" Click="ExportCsvButton_Click" />
-                    <MenuItem x:Name="ExportJsonButton" Header="Json" IsEnabled="False" Click="ExportJsonButton_Click" />
-                    <MenuItem x:Name="ExportXmlButton" Header="XML" IsEnabled="False" Click="ExportXmlButton_Click" />
-                    <MenuItem x:Name="ExportCsButton" Header="C#" IsEnabled="False" Click="ExportCsButton_Click" />
+                    <MenuItem x:Name="ExportCsvButton" Header="CSV" IsEnabled="True" Click="ExportCsvButton_Click" />
+                    <MenuItem x:Name="ExportJsonButton" Header="Json" IsEnabled="True" Click="ExportJsonButton_Click" />
+                    <MenuItem x:Name="ExportXmlButton" Header="XML" IsEnabled="True" Click="ExportXmlButton_Click" />
+                    <MenuItem x:Name="ExportCsButton" Header="C#" IsEnabled="True" Click="ExportCsButton_Click" />
                     <MenuItem Header="C++">
                         <MenuItem x:Name="ExportHCppButton" Header="H and CPP" IsEnabled="True" Click="ExportHCppButton_Click" />
                         <MenuItem x:Name="ExportHInlineButton" Header="H inline" IsEnabled="True" Click="ExportHInlineButton_Click" />

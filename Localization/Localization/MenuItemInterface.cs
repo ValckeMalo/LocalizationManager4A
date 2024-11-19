@@ -12,32 +12,32 @@ namespace Localization
 
         private void ImportCsvButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Import CSV");
+            ImportFromCSV("CSV");
         }
 
         private void ImportJsonButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Import Json");
-        }
+		{
+			ImportFromJSON("Json");
+		}
 
         private void ImportXmlButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Import XML");
+            ImportFromXML("CSV");
         }
 
         private void ExportCsvButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Export CSV");
+            ExportToCSV(LocalizationItems, "CSV", "masterCSV");
         }
 
         private void ExportJsonButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Export Json");
-        }
+		{
+			ExportToJSON(LocalizationItems, "Json", "masterJson");
+		}
 
         private void ExportXmlButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Export XML");
+            ExportToXML(LocalizationItems, "XML", "masterXML");
         }
 
         private void ExportCsButton_Click(object sender, RoutedEventArgs e)
